@@ -1,144 +1,228 @@
 <script lang="ts">
-  const featuredProperties = [
+  let selectedType = "all";
+  let selectedLocation = "all";
+  let minPrice = 0;
+  let maxPrice = 10000000;
+  let sortBy = "newest";
+
+  const properties = [
     {
       id: 1,
       title: "Luxury Penthouse",
       location: "Miami, FL",
-      price: "2,500,000",
-      yield: "8.5",
+      price: 2500000,
+      yield: 8.5,
+      type: "residential",
       image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=800&q=80",
-      tokenized: "75"
+      tokenized: 75,
+      sqft: 3200,
+      bedrooms: 3,
+      bathrooms: 3.5,
+      yearBuilt: 2020
     },
     {
       id: 2,
       title: "Modern Office Complex",
       location: "Austin, TX",
-      price: "4,800,000",
-      yield: "7.2",
+      price: 4800000,
+      yield: 7.2,
+      type: "commercial",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&w=800&q=80",
-      tokenized: "60"
+      tokenized: 60,
+      sqft: 12000,
+      yearBuilt: 2019
     },
     {
       id: 3,
       title: "Beachfront Villa",
       location: "Malibu, CA",
-      price: "3,200,000",
-      yield: "6.8",
+      price: 3200000,
+      yield: 6.8,
+      type: "residential",
       image: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&w=800&q=80",
-      tokenized: "45"
+      tokenized: 45,
+      sqft: 4500,
+      bedrooms: 5,
+      bathrooms: 4,
+      yearBuilt: 2018
+    },
+    {
+      id: 4,
+      title: "Retail Shopping Center",
+      location: "Denver, CO",
+      price: 6500000,
+      yield: 7.8,
+      type: "retail",
+      image: "https://images.unsplash.com/photo-1519420573924-65fcd45245f8?auto=format&w=800&q=80",
+      tokenized: 85,
+      sqft: 25000,
+      yearBuilt: 2015
+    },
+    {
+      id: 5,
+      title: "Industrial Warehouse",
+      location: "Phoenix, AZ",
+      price: 3800000,
+      yield: 8.2,
+      type: "industrial",
+      image: "https://images.unsplash.com/photo-1590492147805-06c743d8edbc?auto=format&w=800&q=80",
+      tokenized: 65,
+      sqft: 40000,
+      yearBuilt: 2017
+    },
+    {
+      id: 6,
+      title: "Downtown Apartment Complex",
+      location: "Seattle, WA",
+      price: 7200000,
+      yield: 6.5,
+      type: "residential",
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&w=800&q=80",
+      tokenized: 90,
+      sqft: 18000,
+      bedrooms: 24,
+      bathrooms: 24,
+      yearBuilt: 2016
     }
   ];
 
-  const stats = [
-    { label: "Total Value Locked", value: "$50M+" },
-    { label: "Active Investors", value: "10,000+" },
-    { label: "Properties Tokenized", value: "150+" },
-    { label: "Average Annual Yield", value: "7.8%" }
-  ];
+  $: filteredProperties = properties
+    .filter(p => selectedType === "all" || p.type === selectedType)
+    .filter(p => selectedLocation === "all" || p.location === selectedLocation)
+    .filter(p => p.price >= minPrice && p.price <= maxPrice)
+    .sort((a, b) => {
+      if (sortBy === "price-low") return a.price - b.price;
+      if (sortBy === "price-high") return b.price - a.price;
+      if (sortBy === "yield") return b.yield - a.yield;
+      return b.id - a.id; // newest
+    });
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
 </script>
 
-<div class="space-y-24 pb-24">
-  <!-- Hero Section -->
-  <section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80 mix-blend-multiply"></div>
-      <video 
-        class="w-full h-full object-cover"
-        autoplay 
-        muted 
-        loop 
-        playsinline
-      >
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-buildings-during-night-time-41465-large.mp4" type="video/mp4">
-      </video>
-    </div>
-    
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-5xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-        Own Real Estate<br/>in the Digital Age
-      </h1>
-      <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto">
-        Invest in premium properties worldwide through blockchain technology. 
-        Start with as little as $100.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button class="px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all text-lg font-semibold">
-          Start Investing
-        </button>
-        <button class="px-8 py-4 rounded-lg border border-white/20 hover:bg-white/10 transition-all text-lg font-semibold">
-          Learn More
-        </button>
-      </div>
-    </div>
-  </section>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Header -->
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold mb-4">Available Properties</h1>
+    <p class="text-gray-400">Discover and invest in premium real estate opportunities</p>
+  </div>
 
-  <!-- Stats Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {#each stats as stat}
-        <div class="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10">
-          <p class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-            {stat.value}
-          </p>
-          <p class="text-gray-400 mt-2">{stat.label}</p>
-        </div>
-      {/each}
-    </div>
-  </section>
+  <!-- Filters -->
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+    <select
+      bind:value={selectedType}
+      class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    >
+      <option value="all">All Types</option>
+      <option value="residential">Residential</option>
+      <option value="commercial">Commercial</option>
+      <option value="retail">Retail</option>
+      <option value="industrial">Industrial</option>
+    </select>
 
-  <!-- Featured Properties -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Featured Properties</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {#each featuredProperties as property}
-        <div class="rounded-2xl overflow-hidden bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20 transition-all">
-          <div class="relative h-48">
-            <img src={property.image} alt={property.title} class="w-full h-full object-cover"/>
-            <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-sm">
-              {property.tokenized}% Tokenized
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold mb-2">{property.title}</h3>
-            <p class="text-gray-400 mb-4">{property.location}</p>
-            <div class="flex justify-between items-center">
-              <div>
-                <p class="text-sm text-gray-400">Property Value</p>
-                <p class="text-lg font-semibold">${property.price}</p>
-              </div>
-              <div class="text-right">
-                <p class="text-sm text-gray-400">Expected Yield</p>
-                <p class="text-lg font-semibold text-green-400">{property.yield}%</p>
-              </div>
-            </div>
-            <button class="w-full mt-6 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
-              View Details
-            </button>
+    <select
+      bind:value={selectedLocation}
+      class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    >
+      <option value="all">All Locations</option>
+      <option value="Miami, FL">Miami, FL</option>
+      <option value="Austin, TX">Austin, TX</option>
+      <option value="Malibu, CA">Malibu, CA</option>
+      <option value="Denver, CO">Denver, CO</option>
+      <option value="Phoenix, AZ">Phoenix, AZ</option>
+      <option value="Seattle, WA">Seattle, WA</option>
+    </select>
+
+    <input
+      type="number"
+      bind:value={minPrice}
+      placeholder="Min Price"
+      class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    />
+
+    <input
+      type="number"
+      bind:value={maxPrice}
+      placeholder="Max Price"
+      class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    />
+
+    <select
+      bind:value={sortBy}
+      class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    >
+      <option value="newest">Newest First</option>
+      <option value="price-low">Price: Low to High</option>
+      <option value="price-high">Price: High to Low</option>
+      <option value="yield">Highest Yield</option>
+    </select>
+  </div>
+
+  <!-- Property Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {#each filteredProperties as property}
+      <div class="rounded-2xl overflow-hidden bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20 transition-all">
+        <div class="relative h-48">
+          <img src={property.image} alt={property.title} class="w-full h-full object-cover"/>
+          <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-sm">
+            {property.tokenized}% Tokenized
           </div>
         </div>
-      {/each}
-    </div>
-  </section>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-semibold mb-2">{property.title}</h3>
+              <p class="text-gray-400">{property.location}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-white/10 text-sm capitalize">
+              {property.type}
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <p class="text-sm text-gray-400">Property Value</p>
+              <p class="text-lg font-semibold">{formatPrice(property.price)}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-gray-400">Expected Yield</p>
+              <p class="text-lg font-semibold text-green-400">{property.yield}%</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-400">Square Feet</p>
+              <p class="text-lg font-semibold">{property.sqft.toLocaleString()}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-gray-400">Year Built</p>
+              <p class="text-lg font-semibold">{property.yearBuilt}</p>
+            </div>
+          </div>
 
-  <!-- How It Works -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">How It Works</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold">1</div>
-        <h3 class="text-xl font-semibold mb-4">Connect Wallet</h3>
-        <p class="text-gray-400">Link your Solana wallet to start investing in tokenized real estate</p>
+          {#if property.type === 'residential' && property.bedrooms}
+            <div class="flex justify-between items-center py-4 border-t border-white/10 mb-6">
+              <span class="flex items-center gap-2">
+                <span class="text-gray-400">🛏</span>
+                <span>{property.bedrooms} beds</span>
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="text-gray-400">🚿</span>
+                <span>{property.bathrooms} baths</span>
+              </span>
+            </div>
+          {/if}
+
+          <button class="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all font-semibold">
+            Invest Now
+          </button>
+        </div>
       </div>
-      <div class="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold">2</div>
-        <h3 class="text-xl font-semibold mb-4">Choose Properties</h3>
-        <p class="text-gray-400">Browse our curated selection of premium real estate investments</p>
-      </div>
-      <div class="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold">3</div>
-        <h3 class="text-xl font-semibold mb-4">Start Earning</h3>
-        <p class="text-gray-400">Receive your share of rental income and property appreciation</p>
-      </div>
-    </div>
-  </section>
+    {/each}
+  </div>
 </div>

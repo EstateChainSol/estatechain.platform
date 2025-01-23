@@ -15,7 +15,6 @@
         </div>
         
         <div class="hidden md:flex items-center space-x-8">
-          <a href="/properties" class="text-gray-300 hover:text-white transition-colors">Properties</a>
           <a href="/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a>
           <a href="/marketplace" class="text-gray-300 hover:text-white transition-colors">Marketplace</a>
           <a href="/governance" class="text-gray-300 hover:text-white transition-colors">Governance</a>
@@ -35,7 +34,6 @@
     {#if isMenuOpen}
       <div class="md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1">
-          <a href="/properties" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Properties</a>
           <a href="/portfolio" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Portfolio</a>
           <a href="/marketplace" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Marketplace</a>
           <a href="/governance" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Governance</a>
