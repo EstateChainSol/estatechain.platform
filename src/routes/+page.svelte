@@ -218,8 +218,11 @@
             </div>
           {/if}
 
-          <button class="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all font-semibold">
-            Invest Now
+          <button class="group relative w-full px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500/50 to-purple-600/50 hover:from-blue-600/50 hover:to-purple-700/50 transition-all font-semibold">
+            <span class="relative z-10 group-hover:opacity-0 transition-opacity">Invest Now</span>
+            <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              Preview Only
+            </span>
           </button>
         </div>
       </div>

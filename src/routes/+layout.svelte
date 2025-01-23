@@ -5,7 +5,15 @@
 </script>
 
 <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
-  <nav class="fixed top-0 w-full bg-black/30 backdrop-blur-lg border-b border-gray-800 z-50">
+  <!-- Demo Banner -->
+  <div class="sticky top-0 z-50 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-b border-blue-500/20 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 text-center text-sm">
+      <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded-md font-medium mr-2">Preview Version</span>
+      <span class="text-gray-300">This is a design preview. Features are simulated for demonstration purposes.</span>
+    </div>
+  </div>
+
+  <nav class="sticky top-8 w-full bg-black/30 backdrop-blur-lg border-b border-gray-800 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -18,8 +26,11 @@
           <a href="/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a>
           <a href="/marketplace" class="text-gray-300 hover:text-white transition-colors">Marketplace</a>
           <a href="/governance" class="text-gray-300 hover:text-white transition-colors">Governance</a>
-          <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all">
-            Connect Wallet
+          <button class="group relative px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500/50 to-purple-600/50 hover:from-blue-600/50 hover:to-purple-700/50 transition-all">
+            <span class="relative z-10 group-hover:opacity-0 transition-opacity">Connect Wallet</span>
+            <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              Demo Only
+            </span>
           </button>
         </div>
 
@@ -37,9 +48,13 @@
           <a href="/portfolio" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Portfolio</a>
           <a href="/marketplace" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Marketplace</a>
           <a href="/governance" class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Governance</a>
-          <button class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all">
-            Connect Wallet
+          <button class="group relative w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500/50 to-purple-600/50 hover:from-blue-600/50 hover:to-purple-700/50 transition-all">
+            <span class="relative z-10 group-hover:opacity-0 transition-opacity">Connect Wallet</span>
+            <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              Demo Only
+            </span>
           </button>
+          <p class="mt-4 px-3 py-2 text-sm text-gray-400 border-t border-gray-800">This is a design preview with simulated features.</p>
         </div>
       </div>
     {/if}
