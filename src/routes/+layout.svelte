@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { base } from '$app/paths';
 	let isMenuOpen = false;
 </script>
 
@@ -22,7 +23,7 @@
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="flex justify-between h-16">
 				<div class="flex items-center">
-					<a href="/" class="flex items-center space-x-2">
+					<a href="{base}/" class="flex items-center space-x-2">
 						<span
 							class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
 							>EstateChain</span
@@ -31,12 +32,12 @@
 				</div>
 
 				<div class="hidden md:flex items-center space-x-8">
-					<a href="/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a
+					<a href="{base}/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a
 					>
-					<a href="/marketplace" class="text-gray-300 hover:text-white transition-colors"
+					<a href="{base}/marketplace" class="text-gray-300 hover:text-white transition-colors"
 						>Marketplace</a
 					>
-					<a href="/governance" class="text-gray-300 hover:text-white transition-colors"
+					<a href="{base}/governance" class="text-gray-300 hover:text-white transition-colors"
 						>Governance</a
 					>
 					<button
@@ -74,15 +75,15 @@
 			<div class="md:hidden">
 				<div class="px-2 pt-2 pb-3 space-y-1">
 					<a
-						href="/portfolio"
+						href="{base}/portfolio"
 						class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Portfolio</a
 					>
 					<a
-						href="/marketplace"
+						href="{base}/marketplace"
 						class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Marketplace</a
 					>
 					<a
-						href="/governance"
+						href="{base}/governance"
 						class="block px-3 py-2 text-gray-300 hover:text-white transition-colors">Governance</a
 					>
 					<button
@@ -122,7 +123,7 @@
 					<h3 class="text-lg font-semibold mb-4">Resources</h3>
 					<ul class="space-y-2 text-gray-400">
 						<li><a href="https://estatechainsol.github.io/estatechain.docs" target="_blank" class="hover:text-white transition-colors">Documentation</a></li>
-						<li><a href="/faq" class="hover:text-white transition-colors">FAQ</a></li>
+						<li><a href="{base}/faq" class="hover:text-white transition-colors">FAQ</a></li>
 					</ul>
 				</div>
 				<div>
