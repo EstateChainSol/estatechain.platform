@@ -65,7 +65,7 @@
       price: 3800000,
       yield: 8.2,
       type: "industrial",
-      image: "https://images.unsplash.com/photo-1590492147805-06c743d8edbc?auto=format&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&w=800&q=80",
       tokenized: 65,
       sqft: 40000,
       yearBuilt: 2017
